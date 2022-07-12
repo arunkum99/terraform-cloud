@@ -2,7 +2,16 @@ provider "google" {
   project     = var.project_id
   region      = var.region
   zone        = var.zone
-  credentials = file("/home/arun/Desktop/terraform/learning-245417-terraform.json")
+}
+
+terraform {
+  cloud {
+    organization = "arun_learning"
+
+    workspaces {
+      name = "terraform-compute"
+    }
+  }
 }
 
 module "test-vpc-module" {
