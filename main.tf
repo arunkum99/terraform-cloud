@@ -1,7 +1,7 @@
 provider "google" {
-  project     = var.project_id
-  region      = var.region
-  zone        = var.zone
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
 }
 
 terraform {
@@ -14,11 +14,10 @@ terraform {
   }
 }
 
-/**
 module "test-vpc-module" {
   source       = "terraform-google-modules/network/google"
   version      = "~> 4.0"
-  project_id   = var.project_id # Replace this with your project ID in quotes
+  project_id   = var.project_id
   network_name = "custom-network1"
   mtu          = 1460
 
@@ -30,7 +29,6 @@ module "test-vpc-module" {
     }
   ]
 }
-**/
 
 resource "google_compute_instance" "vm_instance" {
   project      = var.project_id
@@ -42,8 +40,8 @@ resource "google_compute_instance" "vm_instance" {
       image = "debian-cloud/debian-9"
     }
   }
-/**  network_interface {
-  network = module.test-vpc-module.network_name
-  subnetwork = "subnet-us-central-192"
-}**/
+  network_interface {
+    network    = module.test-vpc-module.network_name
+    subnetwork = "subnet-us-central-192"
+  }
 }
